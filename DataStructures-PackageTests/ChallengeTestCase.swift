@@ -8,24 +8,19 @@ func checkParentheses(_ string: String) -> Bool {
     
     var stack = Stack<Character>()
     
-    for character in string.characters {
-        if character == "(" || character == ")" {
+    for character in string {
+        if character == "(" {
             stack.push(character)
+        } else if character == ")" {
+            if stack.isEmpty {
+                return false
+            } else {
+                stack.pop()
+            }
         }
     }
 
-    while !stack.isEmpty {
-        guard stack.pop() == ")" else {
-            return false
-        }
-        
-        guard !stack.isEmpty && stack.pop() == "(" else {
-            return false
-        }
-        
-    }
-    
-    return true
+    return stack.isEmpty
 }
 
 class ChallengeTestCase: XCTestCase {
